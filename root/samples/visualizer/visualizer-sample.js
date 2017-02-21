@@ -21,6 +21,7 @@ var HEIGHT = 360;
 // Interesting parameters to tweak!
 var SMOOTHING = 0.8;
 var FFT_SIZE = 2048;
+``
 
 function VisualizerSample() {
   this.analyser = context.createAnalyser();
@@ -49,7 +50,7 @@ function VisualizerSample() {
 VisualizerSample.prototype.togglePlayback = function() {
   if (this.isPlaying) {
     // Stop playback
-    this.source[this.source.stop ? 'stop': 'noteOff'](0);
+    this.source[this.source.stop ? 'stop' : 'noteOff'](0);
     this.startOffset += context.currentTime - this.startTime;
     console.log('paused at', this.startOffset);
     // Save the position of the play head.
@@ -78,7 +79,7 @@ VisualizerSample.prototype.draw = function() {
   this.analyser.getByteFrequencyData(this.freqs);
   this.analyser.getByteTimeDomainData(this.times);
 
-  var width = Math.floor(1/this.freqs.length, 10);
+  var width = Math.floor(1 / this.freqs.length, 10);
 
   var canvas = document.querySelector('canvas');
   var drawContext = canvas.getContext('2d');
@@ -90,8 +91,8 @@ VisualizerSample.prototype.draw = function() {
     var percent = value / 256;
     var height = HEIGHT * percent;
     var offset = HEIGHT - height - 1;
-    var barWidth = WIDTH/this.analyser.frequencyBinCount;
-    var hue = i/this.analyser.frequencyBinCount * 360;
+    var barWidth = WIDTH / this.analyser.frequencyBinCount;
+    var hue = i / this.analyser.frequencyBinCount * 360;
     drawContext.fillStyle = 'hsl(' + hue + ', 100%, 50%)';
     drawContext.fillRect(i * barWidth, offset, barWidth, height);
   }
@@ -102,7 +103,7 @@ VisualizerSample.prototype.draw = function() {
     var percent = value / 256;
     var height = HEIGHT * percent;
     var offset = HEIGHT - height - 1;
-    var barWidth = WIDTH/this.analyser.frequencyBinCount;
+    var barWidth = WIDTH / this.analyser.frequencyBinCount;
     drawContext.fillStyle = 'white';
     drawContext.fillRect(i * barWidth, offset, 1, 2);
   }
@@ -113,7 +114,7 @@ VisualizerSample.prototype.draw = function() {
 }
 
 VisualizerSample.prototype.getFrequencyValue = function(freq) {
-  var nyquist = context.sampleRate/2;
-  var index = Math.round(freq/nyquist * this.freqs.length);
+  var nyquist = context.sampleRate / 2;
+  var index = Math.round(freq / nyquist * this.freqs.length);
   return this.freqs[index];
 }
